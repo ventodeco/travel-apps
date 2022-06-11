@@ -2,6 +2,7 @@ import 'package:GoTravel/models/city.dart';
 import 'package:GoTravel/models/space.dart';
 import 'package:GoTravel/models/tips.dart';
 import 'package:GoTravel/pages/home_page.dart';
+import 'package:GoTravel/pages/like_page.dart';
 import 'package:GoTravel/providers/space_provider.dart';
 import 'package:GoTravel/theme.dart';
 import 'package:GoTravel/widgets/bottom_navbar_item.dart';
@@ -170,7 +171,7 @@ class AboutPage extends StatelessWidget {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomePage(),
+                    builder: (context) => LikePage(),
                   ),
                 );
               },

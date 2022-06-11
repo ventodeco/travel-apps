@@ -125,8 +125,8 @@ class LikePage extends StatelessWidget {
               highlightElevation: 0,
               color: Color(0xffF6F7F8),
               child: BottomNavbarItem(
-                imageUrl: 'assets/icon_home.png',
-                isActive: true,
+                imageUrl: 'icon_home_normal.png',
+                isActive: false,
               ),
             ),
             RaisedButton(
