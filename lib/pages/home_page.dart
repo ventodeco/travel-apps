@@ -251,10 +251,6 @@ class HomePage extends StatelessWidget {
               isActive: true,
             ),
             BottomNavbarItem(
-              imageUrl: 'assets/icon_email.png',
-              isActive: false,
-            ),
-            BottomNavbarItem(
               imageUrl: 'assets/icon_card.png',
               isActive: false,
             ),
