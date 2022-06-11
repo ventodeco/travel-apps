@@ -1,6 +1,7 @@
 import 'package:GoTravel/models/city.dart';
 import 'package:GoTravel/models/space.dart';
 import 'package:GoTravel/models/tips.dart';
+import 'package:GoTravel/pages/about_page.dart';
 import 'package:GoTravel/providers/space_provider.dart';
 import 'package:GoTravel/theme.dart';
 import 'package:GoTravel/widgets/bottom_navbar_item.dart';
@@ -246,17 +247,55 @@ class HomePage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            BottomNavbarItem(
-              imageUrl: 'assets/icon_home.png',
-              isActive: true,
+            RaisedButton(
+              onPressed: () {},
+              elevation: 0,
+              hoverElevation: 0,
+              focusElevation: 0,
+              highlightElevation: 0,
+              color: Color(0xffF6F7F8),
+              child: BottomNavbarItem(
+                imageUrl: 'assets/icon_home.png',
+                isActive: true,
+              ),
             ),
-            BottomNavbarItem(
-              imageUrl: 'assets/icon_card.png',
-              isActive: false,
+            RaisedButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AboutPage(),
+                  ),
+                );
+              },
+              elevation: 0,
+              hoverElevation: 0,
+              focusElevation: 0,
+              highlightElevation: 0,
+              color: Color(0xffF6F7F8),
+              child: BottomNavbarItem(
+                imageUrl: 'assets/icon_card.png',
+                isActive: false,
+              ),
             ),
-            BottomNavbarItem(
-              imageUrl: 'assets/icon_love.png',
-              isActive: false,
+            RaisedButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomePage(),
+                  ),
+                );
+              },
+              elevation: 0,
+              hoverElevation: 0,
+              focusElevation: 0,
+              highlightElevation: 0,
+              color: Color(0xffF6F7F8),
+              child: BottomNavbarItem(
+                imageUrl: 'assets/icon_love.png',
+                isActive: false,
+              ),
             ),
           ],
         ),

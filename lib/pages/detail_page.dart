@@ -261,9 +261,6 @@ class _DetailPageState extends State<DetailPage> {
                             ),
                             InkWell(
                               onTap: () {
-                                // launchUrl(
-                                //     'https://goo.gl/maps/SyZx2yjWB1yR6AeH8');
-
                                 launchUrl(widget.space.mapUrl);
                               },
                               child: Image.asset(
