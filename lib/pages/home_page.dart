@@ -1,13 +1,13 @@
 import 'package:GoTravel/models/city.dart';
-import 'package:GoTravel/models/space.dart';
+import 'package:GoTravel/models/travel.dart';
 import 'package:GoTravel/models/tips.dart';
 import 'package:GoTravel/pages/about_page.dart';
 import 'package:GoTravel/pages/like_page.dart';
-import 'package:GoTravel/providers/space_provider.dart';
+import 'package:GoTravel/providers/travel_provider.dart';
 import 'package:GoTravel/theme.dart';
 import 'package:GoTravel/widgets/bottom_navbar_item.dart';
 import 'package:GoTravel/widgets/city_card.dart';
-import 'package:GoTravel/widgets/space_card.dart';
+import 'package:GoTravel/widgets/travel_card.dart';
 import 'package:GoTravel/widgets/tips_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var spaceProvider = Provider.of<SpaceProvider>(context);
+    var travelProvider = Provider.of<TravelProvider>(context);
 
     return Scaffold(
       backgroundColor: whiteColor,
@@ -158,10 +158,12 @@ class HomePage extends StatelessWidget {
                 horizontal: edge,
               ),
               child: FutureBuilder(
-                future: spaceProvider.getRecommendedSpaces(),
+                future: travelProvider.getTravelLocation(),
                 builder: (context, snapshot) {
+                  print("coba");
+                  print(snapshot.hasData);
                   if (snapshot.hasData) {
-                    List<Space> data = snapshot.data;
+                    List<Travel> data = snapshot.data;
 
                     int index = 0;
 
@@ -172,7 +174,7 @@ class HomePage extends StatelessWidget {
                           margin: EdgeInsets.only(
                             top: index == 1 ? 0 : 30,
                           ),
-                          child: SpaceCard(item),
+                          child: TravelCard(item),
                         );
                       }).toList(),
                     );

@@ -1,17 +1,17 @@
-import 'package:GoTravel/models/space.dart';
+import 'package:GoTravel/models/travel.dart';
 import 'package:GoTravel/pages/about_page.dart';
 import 'package:GoTravel/pages/home_page.dart';
-import 'package:GoTravel/providers/space_provider.dart';
+import 'package:GoTravel/providers/travel_provider.dart';
 import 'package:GoTravel/theme.dart';
 import 'package:GoTravel/widgets/bottom_navbar_item.dart';
-import 'package:GoTravel/widgets/space_card.dart';
+import 'package:GoTravel/widgets/travel_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class LikePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var spaceProvider = Provider.of<SpaceProvider>(context);
+    var travelProvider = Provider.of<TravelProvider>(context);
 
     return Scaffold(
       backgroundColor: whiteColor,
@@ -65,10 +65,10 @@ class LikePage extends StatelessWidget {
                 horizontal: edge,
               ),
               child: FutureBuilder(
-                future: spaceProvider.getRecommendedSpaces(),
+                future: travelProvider.getTravelLocation(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    List<Space> data = snapshot.data;
+                    List<Travel> data = snapshot.data;
 
                     int index = 0;
 
@@ -79,7 +79,7 @@ class LikePage extends StatelessWidget {
                           margin: EdgeInsets.only(
                             top: index == 1 ? 0 : 30,
                           ),
-                          child: SpaceCard(item),
+                          child: TravelCard(item),
                         );
                       }).toList(),
                     );
@@ -125,7 +125,7 @@ class LikePage extends StatelessWidget {
               highlightElevation: 0,
               color: Color(0xffF6F7F8),
               child: BottomNavbarItem(
-                imageUrl: 'icon_home_normal.png',
+                imageUrl: 'assets/icon_home_normal.png',
                 isActive: false,
               ),
             ),
@@ -156,7 +156,7 @@ class LikePage extends StatelessWidget {
               highlightElevation: 0,
               color: Color(0xffF6F7F8),
               child: BottomNavbarItem(
-                imageUrl: 'icon_love_active.png',
+                imageUrl: 'assets/icon_love_active.png',
                 isActive: true,
               ),
             ),

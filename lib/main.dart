@@ -1,5 +1,5 @@
 import 'package:GoTravel/pages/splash_page.dart';
-import 'package:GoTravel/providers/space_provider.dart';
+import 'package:GoTravel/providers/travel_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => SpaceProvider(),
+      create: (context) => TravelProvider(),
       child: MaterialApp(
         home: SplashPage(),
         debugShowCheckedModeBanner: false,

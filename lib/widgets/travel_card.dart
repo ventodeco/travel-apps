@@ -1,13 +1,13 @@
-import 'package:GoTravel/models/space.dart';
+import 'package:GoTravel/models/travel.dart';
 import 'package:GoTravel/pages/detail_page.dart';
 import 'package:flutter/material.dart';
 
 import '../theme.dart';
 
-class SpaceCard extends StatelessWidget {
-  final Space space;
+class TravelCard extends StatelessWidget {
+  final Travel travel;
 
-  SpaceCard(this.space);
+  TravelCard(this.travel);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class SpaceCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DetailPage(space),
+            builder: (context) => DetailPage(travel),
           ),
         );
       },
@@ -30,7 +30,7 @@ class SpaceCard extends StatelessWidget {
               child: Stack(
                 children: [
                   Image.network(
-                    space.imageUrl,
+                    travel.imageUrl,
                     width: 130,
                     height: 110,
                     fit: BoxFit.cover,
@@ -56,7 +56,7 @@ class SpaceCard extends StatelessWidget {
                             height: 22,
                           ),
                           Text(
-                            '${space.rating}/5',
+                            '${travel.rating}/5',
                             style: whiteTextStyle.copyWith(
                               fontSize: 13,
                             ),
@@ -76,7 +76,7 @@ class SpaceCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                space.name,
+                travel.name,
                 style: blackTextStyle.copyWith(
                   fontSize: 18,
                 ),
@@ -86,25 +86,17 @@ class SpaceCard extends StatelessWidget {
               ),
               Text.rich(
                 TextSpan(
-                  text: '\$${space.price}',
-                  style: purpleTextStyle.copyWith(
+                  text: '${travel.subtitle}',
+                  style: greyTextStyle.copyWith(
                     fontSize: 16,
                   ),
-                  children: [
-                    TextSpan(
-                      text: ' / month',
-                      style: greyTextStyle.copyWith(
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
                 ),
               ),
               SizedBox(
                 height: 16,
               ),
               Text(
-                '${space.city}, ${space.country}',
+                '${travel.shortAddress}',
                 style: greyTextStyle,
               ),
             ],

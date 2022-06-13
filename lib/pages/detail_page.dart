@@ -1,4 +1,4 @@
-import 'package:GoTravel/models/space.dart';
+import 'package:GoTravel/models/travel.dart';
 import 'package:GoTravel/pages/error_page.dart';
 import 'package:GoTravel/theme.dart';
 import 'package:GoTravel/widgets/facility_item.dart';
@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailPage extends StatefulWidget {
-  final Space space;
+  final Travel travel;
 
-  DetailPage(this.space);
+  DetailPage(this.travel);
 
   @override
   _DetailPageState createState() => _DetailPageState();
@@ -34,7 +34,7 @@ class _DetailPageState extends State<DetailPage> {
       }
     }
 
-    Future<void> handleBook(Space space) async {
+    Future<void> handleBook(Travel travel) async {
       return showDialog<void>(
         context: context,
         builder: (BuildContext context) {
@@ -61,7 +61,7 @@ class _DetailPageState extends State<DetailPage> {
                 child: Text('Hubungi'),
                 onPressed: () {
                   Navigator.of(context).pop();
-                  launchUrl('tel:${space.phone}');
+                  launchUrl('tel:${travel.phoneNumber}');
                 },
               ),
             ],
@@ -77,7 +77,7 @@ class _DetailPageState extends State<DetailPage> {
         child: Stack(
           children: [
             Image.network(
-              widget.space.imageUrl,
+              widget.travel.imageUrl,
               width: MediaQuery.of(context).size.width,
               height: 350,
               fit: BoxFit.cover,
@@ -113,7 +113,7 @@ class _DetailPageState extends State<DetailPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  widget.space.name,
+                                  widget.travel.name,
                                   style: blackTextStyle.copyWith(
                                     fontSize: 22,
                                   ),
@@ -123,7 +123,7 @@ class _DetailPageState extends State<DetailPage> {
                                 ),
                                 Text.rich(
                                   TextSpan(
-                                    text: '\$${widget.space.price}',
+                                    text: '\$${widget.travel.name}',
                                     style: purpleTextStyle.copyWith(
                                       fontSize: 16,
                                     ),
@@ -147,51 +147,10 @@ class _DetailPageState extends State<DetailPage> {
                                   ),
                                   child: RatingItem(
                                     index: index,
-                                    rating: widget.space.rating,
+                                    rating: widget.travel.rating,
                                   ),
                                 );
                               }).toList(),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      // NOTE: MAIN FACILITIES
-                      Padding(
-                        padding: EdgeInsets.only(left: edge),
-                        child: Text(
-                          'Main Facilities',
-                          style: regularTextStyle.copyWith(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 12,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: edge,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            FacilityItem(
-                              name: 'kitchen',
-                              imageUrl: 'assets/icon_kitchen.png',
-                              total: widget.space.numberOfKitchens,
-                            ),
-                            FacilityItem(
-                              name: 'bedroom',
-                              imageUrl: 'assets/icon_bedroom.png',
-                              total: widget.space.numberOfBedrooms,
-                            ),
-                            FacilityItem(
-                              name: 'Big Lemari',
-                              imageUrl: 'assets/icon_cupboard.png',
-                              total: widget.space.numberOfCupboards,
                             ),
                           ],
                         ),
@@ -216,7 +175,7 @@ class _DetailPageState extends State<DetailPage> {
                         height: 88,
                         child: ListView(
                           scrollDirection: Axis.horizontal,
-                          children: widget.space.photos.map((item) {
+                          children: widget.travel.imagesTravel.map((item) {
                             return Container(
                               margin: EdgeInsets.only(
                                 left: 24,
@@ -224,7 +183,7 @@ class _DetailPageState extends State<DetailPage> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(16),
                                 child: Image.network(
-                                  item,
+                                  item["ImageUrl"],
                                   width: 110,
                                   height: 88,
                                   fit: BoxFit.cover,
@@ -256,12 +215,12 @@ class _DetailPageState extends State<DetailPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              '${widget.space.address}\n${widget.space.city}',
+                              '${widget.travel.longAddress}',
                               style: greyTextStyle,
                             ),
                             InkWell(
                               onTap: () {
-                                launchUrl(widget.space.mapUrl);
+                                launchUrl(widget.travel.mapUrl);
                               },
                               child: Image.asset(
                                 'assets/btn_map.png',
@@ -282,7 +241,7 @@ class _DetailPageState extends State<DetailPage> {
                         width: MediaQuery.of(context).size.width - (2 * edge),
                         child: FlatButton(
                           onPressed: () {
-                            handleBook(widget.space);
+                            handleBook(widget.travel);
                           },
                           color: purpleColor,
                           shape: RoundedRectangleBorder(

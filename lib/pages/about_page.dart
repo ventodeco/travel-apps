@@ -1,16 +1,8 @@
-import 'package:GoTravel/models/city.dart';
-import 'package:GoTravel/models/space.dart';
-import 'package:GoTravel/models/tips.dart';
 import 'package:GoTravel/pages/home_page.dart';
 import 'package:GoTravel/pages/like_page.dart';
-import 'package:GoTravel/providers/space_provider.dart';
 import 'package:GoTravel/theme.dart';
 import 'package:GoTravel/widgets/bottom_navbar_item.dart';
-import 'package:GoTravel/widgets/city_card.dart';
-import 'package:GoTravel/widgets/space_card.dart';
-import 'package:GoTravel/widgets/tips_card.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class AboutPage extends StatelessWidget {
   @override
@@ -50,7 +42,7 @@ class AboutPage extends StatelessWidget {
               height: 30,
             ),
             Image.asset(
-              'about.png',
+              'assets/about.png',
               height: 300,
             ),
             SizedBox(
@@ -150,7 +142,7 @@ class AboutPage extends StatelessWidget {
               highlightElevation: 0,
               color: Color(0xffF6F7F8),
               child: BottomNavbarItem(
-                imageUrl: 'icon_home_normal.png',
+                imageUrl: 'assets/icon_home_normal.png',
                 isActive: false,
               ),
             ),
@@ -162,7 +154,7 @@ class AboutPage extends StatelessWidget {
               highlightElevation: 0,
               color: Color(0xffF6F7F8),
               child: BottomNavbarItem(
-                imageUrl: 'icon_card_active.png',
+                imageUrl: 'assets/icon_card_active.png',
                 isActive: true,
               ),
             ),
