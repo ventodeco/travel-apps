@@ -1,9 +1,11 @@
 import 'package:GoTravel/models/travel.dart';
 import 'package:GoTravel/pages/error_page.dart';
+import 'package:GoTravel/providers/travel_provider.dart';
 import 'package:GoTravel/theme.dart';
 import 'package:GoTravel/widgets/facility_item.dart';
 import 'package:GoTravel/widgets/rating_item.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailPage extends StatefulWidget {
@@ -16,10 +18,10 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
-  bool isFavorite = false;
-
   @override
   Widget build(BuildContext context) {
+    var travelProvider = Provider.of<TravelProvider>(context);
+
     launchUrl(String url) async {
       if (await canLaunch(url)) {
         launch(url);
@@ -123,18 +125,10 @@ class _DetailPageState extends State<DetailPage> {
                                 ),
                                 Text.rich(
                                   TextSpan(
-                                    text: '\$${widget.travel.name}',
-                                    style: purpleTextStyle.copyWith(
+                                    text: '${widget.travel.subtitle}',
+                                    style: greyTextStyle.copyWith(
                                       fontSize: 16,
                                     ),
-                                    children: [
-                                      TextSpan(
-                                        text: ' / month',
-                                        style: greyTextStyle.copyWith(
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                    ],
                                   ),
                                 ),
                               ],
@@ -158,11 +152,69 @@ class _DetailPageState extends State<DetailPage> {
                       SizedBox(
                         height: 30,
                       ),
-                      // NOTE: PHOTO
+                      // NOTE: TUJUAN
                       Padding(
                         padding: EdgeInsets.only(left: edge),
                         child: Text(
-                          'Photos',
+                          'Tujuan',
+                          style: regularTextStyle.copyWith(
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 12,
+                      ),
+                      Container(
+                        height: 88,
+                        child: Column(
+                          children: widget.travel.destinations.map((item) {
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding:
+                                      EdgeInsets.only(left: edge, right: edge),
+                                  child: Text(
+                                    item["Name"],
+                                    style: greyTextStyle.copyWith(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      EdgeInsets.only(left: edge, right: edge),
+                                  child: Text.rich(
+                                    TextSpan(
+                                      text: 'Rp' + item["Price"].toString(),
+                                      style: purpleTextStyle.copyWith(
+                                        fontSize: 14,
+                                      ),
+                                      children: [
+                                        TextSpan(
+                                          text: ' / orang',
+                                          style: greyTextStyle.copyWith(
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      // NOTE: FOTO AGEN
+                      Padding(
+                        padding: EdgeInsets.only(left: edge),
+                        child: Text(
+                          'Foto Agen',
                           style: regularTextStyle.copyWith(
                             fontSize: 16,
                           ),
@@ -196,11 +248,11 @@ class _DetailPageState extends State<DetailPage> {
                       SizedBox(
                         height: 30,
                       ),
-                      // NOTE: LOCATION
+                      // NOTE: LOKASI AGEN
                       Padding(
                         padding: EdgeInsets.only(left: edge),
                         child: Text(
-                          'Location',
+                          'Lokasi Agen',
                           style: regularTextStyle.copyWith(
                             fontSize: 16,
                           ),
@@ -214,9 +266,11 @@ class _DetailPageState extends State<DetailPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              '${widget.travel.longAddress}',
-                              style: greyTextStyle,
+                            Flexible(
+                              child: Text(
+                                '${widget.travel.longAddress}',
+                                style: greyTextStyle,
+                              ),
                             ),
                             InkWell(
                               onTap: () {
@@ -248,7 +302,7 @@ class _DetailPageState extends State<DetailPage> {
                             borderRadius: BorderRadius.circular(17),
                           ),
                           child: Text(
-                            'Book Now',
+                            'Book Sekarang',
                             style: whiteTextStyle.copyWith(
                               fontSize: 18,
                             ),
@@ -280,22 +334,22 @@ class _DetailPageState extends State<DetailPage> {
                       width: 40,
                     ),
                   ),
-                  // Image.asset(
-                  //   'assets/btn_wishlist.png',
-                  //   width: 40,
-                  // ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        isFavorite = !isFavorite;
-                      });
+                  Consumer<TravelProvider>(
+                    builder: (context, provider, child) {
+                      return InkWell(
+                        onTap: () {
+                          widget.travel.isLiked = provider.setFavorite();
+                          provider.updateTravel(
+                              widget.travel.id, widget.travel.isLiked);
+                        },
+                        child: Image.asset(
+                          provider.getTravel(widget.travel)
+                              ? 'assets/btn_wishlist_active.png'
+                              : 'assets/btn_wishlist.png',
+                          width: 40,
+                        ),
+                      );
                     },
-                    child: Image.asset(
-                      isFavorite
-                          ? 'assets/btn_wishlist_active.png'
-                          : 'assets/btn_wishlist.png',
-                      width: 40,
-                    ),
                   ),
                 ],
               ),

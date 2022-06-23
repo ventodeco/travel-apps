@@ -160,8 +160,6 @@ class HomePage extends StatelessWidget {
               child: FutureBuilder(
                 future: travelProvider.getTravelLocation(),
                 builder: (context, snapshot) {
-                  print("coba");
-                  print(snapshot.hasData);
                   if (snapshot.hasData) {
                     List<Travel> data = snapshot.data;
 

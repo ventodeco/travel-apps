@@ -26,7 +26,7 @@ class LikePage extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(left: edge),
               child: Text(
-                'Disukai',
+                'Favorit',
                 style: blackTextStyle.copyWith(
                   fontSize: 24,
                 ),
@@ -65,7 +65,7 @@ class LikePage extends StatelessWidget {
                 horizontal: edge,
               ),
               child: FutureBuilder(
-                future: travelProvider.getTravelLocation(),
+                future: travelProvider.getFavoriteTravel(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     List<Travel> data = snapshot.data;
